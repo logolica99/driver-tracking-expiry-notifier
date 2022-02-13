@@ -89,4 +89,8 @@ const checkAndSendMail = () => {
   });
 };
 
+getServerData();
 setInterval(getServerData, 86400000);
+app.get('/', (req, res) => {
+  res.send('Email notifier every 24Hours')
+})
