@@ -91,6 +91,11 @@ const checkAndSendMail = () => {
 
 getServerData();
 setInterval(getServerData, 86400000);
-app.get('/', (req, res) => {
-  res.send('Email notifier every 24Hours')
-})
+
+const port = process.env.PORT || 3000;
+app.get("/", (req, res) => {
+  res.send("Email notifier every 24 Hours");
+});
+app.listen(port, () => {
+  console.log(`App listening at http://localhost:${port}`);
+});
