@@ -28,6 +28,7 @@ const getExpiryDates = (data) => {
     data.applicantInformation.physicalExamExpirationDate;
   temp["licenceExpireDates"] = data.drivingExperience.driverLicenseList.dates;
   temp["licenceStates"] = data.drivingExperience.driverLicenseList.states;
+  temp["maintenanceDue"] = data.vehicleInventory.maintenanceDue;
   expiryData.push(temp);
   console.log(expiryData);
 };
@@ -63,6 +64,18 @@ const checkAndSendMail = () => {
       mailOptions["subject"] = "Certificate Expiration";
       mailOptions["text"] =
         "You medical certificate has expired please renew it";
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+    }
+    if (data.maintenanceDue < todaysDate) {
+      mailOptions["subject"] = "Maintenance Due";
+      mailOptions["text"] =
+        "You Maintenance Due has expired please renew it";
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
